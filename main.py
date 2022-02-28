@@ -1,17 +1,15 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5 import uic
+from UI import Ui_MainWindow
 from random import randint
 
 
-class Form(QMainWindow):
+class Form(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
-        
+        self.setupUi(self)
         self.btn.clicked.connect(self.draw)
-
         self.flag = False
 
     def draw(self):
@@ -22,8 +20,9 @@ class Form(QMainWindow):
         if self.flag:
             qp = QPainter()
             qp.begin(self)
-            qp.setPen(QColor(255, 255, 0))
-            qp.setBrush(QColor(255, 255, 0))
+            color_cir = QColor(randint(0, 255), randint(0, 255), randint(0, 255))
+            qp.setPen(color_cir)
+            qp.setBrush(color_cir)
             r = randint(10, 200)
             x, y = randint(0, 400 - r), randint(0, 400 - r)
             qp.drawEllipse(x, y, r, r)
